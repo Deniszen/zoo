@@ -24,7 +24,7 @@ public class AnimalController {
         return repository.findById(id).orElseThrow(AnimalNotFoundException::new);
     }
 
-    @RequestMapping(value="/list", method=RequestMethod.GET)
+    @GetMapping(value="/list", produces = "application/json")
     public ResponseEntity<Iterable<Animal>> getAnimals() {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
