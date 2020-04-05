@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Animal {
 
     @Id
-    private String id;
+    private long id;
 
     private String type;
 

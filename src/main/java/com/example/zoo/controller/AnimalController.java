@@ -3,6 +3,7 @@ package com.example.zoo.controller;
 import com.example.zoo.exceptions.AnimalConflictException;
 import com.example.zoo.exceptions.AnimalNotFoundException;
 import com.example.zoo.models.Animal;
+import com.example.zoo.models.Animals;
 import com.example.zoo.repository.AnimalRepository;
 import lombok.var;
 import org.springframework.http.HttpStatus;
@@ -20,13 +21,16 @@ public class AnimalController {
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public Animal getAnimal(@PathVariable String id) {
+    public Animal getAnimal(@PathVariable Long id) {
         return repository.findById(id).orElseThrow(AnimalNotFoundException::new);
     }
 
     @GetMapping(value="/list", produces = "application/json")
-    public ResponseEntity<Iterable<Animal>> getAnimals() {
-        return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+    public ResponseEntity<Animals> getAnimals() {
+        Animals animals = new Animals();
+        animals.setAnimals(repository.findByOrderByIdAsc());
+        animals.setCount(animals.getAnimals().size());
+        return new ResponseEntity<>(animals, HttpStatus.OK);
     }
 
     @PostMapping(produces = "application/json")
@@ -39,7 +43,7 @@ public class AnimalController {
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
     @ResponseBody
-    public ResponseEntity deleteAnimal(@PathVariable String id) {
+    public ResponseEntity deleteAnimal(@PathVariable Long id) {
         var a = repository.findById(id).orElse(null);
         repository.findById(id).ifPresent(animal -> repository.delete(animal));
         if (a == null) {
@@ -49,7 +53,7 @@ public class AnimalController {
     }
 
     @PutMapping(value = "/{id}", produces = "application/json")
-    public Animal updateAnimal(@PathVariable String id, @RequestBody Animal animal) {
+    public Animal updateAnimal(@PathVariable Long id, @RequestBody Animal animal) {
         repository.findById(id).orElseThrow(AnimalNotFoundException::new);
         return repository.save(animal);
     }
