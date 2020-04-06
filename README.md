@@ -1,4 +1,4 @@
-#Zoo CRUD Service
+# Zoo CRUD Service
 
 Zoo this a docker image built to be used for API testing practice.
 Zoo is full CRUD service based on Spring Boot, you can send and check POST, GET, PUT and DELETE requests.
