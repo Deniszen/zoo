@@ -26,9 +26,15 @@ public class AnimalController {
     }
 
     @GetMapping(value="/list", produces = "application/json")
-    public ResponseEntity<Animals> getAnimals() {
+    public ResponseEntity<Animals> getAnimals(@RequestParam(required = false) String sort) {
         Animals animals = new Animals();
-        animals.setAnimals(repository.findByOrderByIdAsc());
+        if (sort != null && sort.equals("desc")) {
+            animals.setAnimals(repository.findByOrderByIdDesc());
+        } else if (sort != null && sort.equals("asc")) {
+            animals.setAnimals(repository.findByOrderByIdAsc());
+        } else {
+            animals.setAnimals(repository.findByOrderByIdAsc());
+        }
         animals.setCount(animals.getAnimals().size());
         return new ResponseEntity<>(animals, HttpStatus.OK);
     }

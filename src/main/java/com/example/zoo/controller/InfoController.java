@@ -12,11 +12,12 @@ public class InfoController {
 
     @GetMapping(produces = "text/plain")
     public ResponseEntity<String> getInfo() {
-        String message = "This is simple CRUD service\nREST routes:\n\nPOST\t\t\t/animals\nGET" +
-                "\t\t\t\t/animals/:id or /animals/list\nPUT" +
-                "\t\t\t\t/animals/:id\nDELETE" +
-                "\t\t\t/animals/:id\n\n" +
-                "Request example:\n" +
+        String message = "This is simple CRUD service\nREST routes:\n\nPOST\t\t\t/animals - for create\nGET" +
+                "\t\t\t\t/animals/:id or /animals/list - for read one or all animals\nPUT" +
+                "\t\t\t\t/animals/:id - for update animal\nDELETE" +
+                "\t\t\t/animals/:id - for delete animal\n\n" +
+                "Example:\n" +
+                "Request JSON:\n" +
                 "{\n" +
                 " \"id\": \"id\",\n" +
                 " \"type\": \"type\",\n" +

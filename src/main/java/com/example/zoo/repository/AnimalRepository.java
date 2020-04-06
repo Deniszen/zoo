@@ -11,4 +11,6 @@ public interface AnimalRepository extends CrudRepository<Animal, Long> {
 
     ArrayList<Animal> findByOrderByIdAsc();
 
+    ArrayList<Animal> findByOrderByIdDesc();
+
 }
