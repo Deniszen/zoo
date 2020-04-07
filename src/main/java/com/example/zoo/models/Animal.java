@@ -1,7 +1,7 @@
 package com.example.zoo.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Entity;
@@ -10,15 +10,21 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class Animal {
 
     @Id
+    @NonNull
     private long id;
 
+    @NonNull
     private String type;
 
+    @NonNull
     private String name;
 
+    @NonNull
     private String age;
 
     @CreationTimestamp

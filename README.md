@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Deniszen/zoo.svg?branch=master)](https://travis-ci.org/Deniszen/zoo)
+[![codecov](https://codecov.io/gh/Deniszen/zoo/branch/master/graph/badge.svg)](https://codecov.io/gh/Deniszen/zoo)
 # Zoo CRUD Service
 
 Zoo this a docker image built to be used for API testing practice.
