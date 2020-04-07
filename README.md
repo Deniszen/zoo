@@ -13,7 +13,7 @@ Quick Start
 ------------
 1. Pull Docker image.
     ```bash 
-    docker pull zentreid/zoo:v1
+    docker pull zentreid/zoo:v1.01
     ```
 
 2. Run Docker image.
