@@ -18,7 +18,7 @@ Quick Start
 
 2. Run Docker image.
     ```bash
-    docker run -d -p 8080:8080 --name crud zentreid/zoo:v1
+    docker run -d -p 8080:8080 --name crud zentreid/zoo:v1.01
     ```
 
 3. Send request to http://localhost:8080/info for get more information about CRUD service.
