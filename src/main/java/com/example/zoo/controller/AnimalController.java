@@ -5,7 +5,6 @@ import com.example.zoo.exceptions.AnimalNotFoundException;
 import com.example.zoo.models.Animal;
 import com.example.zoo.models.Animals;
 import com.example.zoo.repository.AnimalRepository;
-import lombok.var;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,17 +49,21 @@ public class AnimalController {
     @DeleteMapping(value = "/{id}", produces = "application/json")
     @ResponseBody
     public ResponseEntity deleteAnimal(@PathVariable Long id) {
-        var a = repository.findById(id).orElse(null);
-        repository.findById(id).ifPresent(animal -> repository.delete(animal));
-        if (a == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (repository.findById(id).isPresent()) {
+            repository.findById(id).ifPresent(animal -> repository.delete(animal));
+            return ResponseEntity.noContent().build();
+        } else {
+            throw new AnimalNotFoundException();
         }
-        return new ResponseEntity<>(a.getId(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}", produces = "application/json")
     public Animal updateAnimal(@PathVariable Long id, @RequestBody Animal animal) {
-        repository.findById(id).orElseThrow(AnimalNotFoundException::new);
-        return repository.save(animal);
+        if (repository.findById(id).isPresent()) {
+            animal.setTime(repository.findById(id).get().getTime());
+            return repository.save(animal);
+        } else {
+            return repository.findById(id).orElseThrow(AnimalNotFoundException::new);
+        }
     }
 }
