@@ -5,9 +5,12 @@ import com.example.zoo.exceptions.AnimalNotFoundException;
 import com.example.zoo.models.Animal;
 import com.example.zoo.models.Animals;
 import com.example.zoo.repository.AnimalRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("animals")
@@ -25,7 +28,7 @@ public class AnimalController {
     }
 
     @GetMapping(value="/list", produces = "application/json")
-    public ResponseEntity<Animals> getAnimals(@RequestParam(required = false) String sort) {
+    public ResponseEntity<Animals> getAnimals(@RequestParam(required = false) String sort, @RequestParam(required = false) String type) {
         Animals animals = new Animals();
         if (sort != null && sort.equals("desc")) {
             animals.setAnimals(repository.findByOrderByIdDesc());
@@ -36,6 +39,13 @@ public class AnimalController {
         }
         animals.setCount(animals.getAnimals().size());
         return new ResponseEntity<>(animals, HttpStatus.OK);
+    }
+
+    public List<Animal> byType(String type, int page, int onPage) {
+        return repository.findAllByType(type, PageRequest.of(page, onPage));
+    }
+    public List<Animal> byType(String type) {
+        return repository.findAllByType(type);
     }
 
     @PostMapping(produces = "application/json")
